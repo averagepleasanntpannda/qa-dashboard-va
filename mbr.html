@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Master Batch Record Module</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #181d2c;
+      color: #e3e7ee;
+      margin: 0;
+      padding: 0;
+    }
+    h1 {
+      text-align: center;
+      margin: 40px 0 30px 0;
+      color: #78cefa;
+      letter-spacing: 1px;
+      font-size: 2em;
+    }
+    .container {
+      max-width: 940px;
+      margin: 0 auto 38px auto;
+      padding: 24px 0 20px 0;
+      background: #222741;
+      border-radius: 18px;
+      box-shadow: 0 6px 32px #14162b66;
+    }
+    .tabs {
+      display: flex;
+      gap: 6px;
+      margin: 0 0 20px 0;
+      justify-content: center;
+    }
+    .tab-btn {
+      background: #232949;
+      color: #a2d0e8;
+      border: none;
+      padding: 13px 32px;
+      font-size: 1.05em;
+      border-radius: 13px 13px 0 0;
+      font-weight: 600;
+      cursor: pointer;
+      margin-bottom: -2px;
+      border-bottom: 2px solid transparent;
+      transition: background .18s, color .13s;
+    }
+    .tab-btn.active, .tab-btn:hover {
+      background: #28315a;
+      color: #e3e7ee;
+      border-bottom: 2px solid #81bbd7;
+    }
+    .tab-content { display: none; padding: 28px 24px 8px 24px; }
+    .tab-content.active { display: block; animation: fadein .3s; }
+    @keyframes fadein { from {opacity: 0;} to {opacity: 1;} }
+    label { display: block; margin-top: 16px; color: #bfd6ee; font-size: 0.98em;}
+    input[type="text"], input[type="number"], input[type="date"], input[type="datetime-local"] {
+      width: 100%; box-sizing: border-box; padding: 9px 12px; margin-bottom: 10px; margin-top: 2px;
+      background: #293150; color: #e3e7ee; border: 1px solid #425481; border-radius: 7px; font-size: 1em;
+    }
+    textarea {
+      width: 100%; min-height: 44px; max-height: 100px; box-sizing: border-box;
+      margin-top: 6px; margin-bottom: 0;
+      padding: 10px; font-size: 1em; background: #293150;
+      color: #e3e7ee; border: 1px solid #425481; border-radius: 7px; resize: vertical;
+    }
+    table {
+      width: 100%; border-collapse: separate; border-spacing: 0;
+      background: #20263d; border-radius: 7px; overflow: hidden; margin-bottom: 4px;
+    }
+    th, td {
+      border-bottom: 1px solid #293150; padding: 0; text-align: center; vertical-align: middle; background: #20263d;
+    }
+    th { color: #cbe7ff; font-weight: 500; font-size: 0.97em; padding: 9px 0; }
+    td { padding: 0; }
+    td input, td textarea {
+      width: 98%; margin: 5px 0; font-size: 0.98em; background: #252d46; border: 1px solid #425481; border-radius: 6px; padding: 8px;
+    }
+    .row { display: flex; gap: 18px; }
+    .row > div { flex: 1; }
+    .add-btn {
+      margin: 8px 0 8px 0; padding: 8px 18px;
+      background: linear-gradient(90deg,#b0e1fc,#c4fff7 90%);
+      border: none; border-radius: 7px;
+      font-weight: 600; color: #232949;
+      cursor: pointer; font-size: 1em;
+      transition: background .17s;
+      box-shadow: 0 0 8px #81bbd755;
+    }
+    .add-btn:hover {
+      background: linear-gradient(90deg,#d7f6ff,#cbfff1 80%);
+    }
+    .checkbox-group {
+      display: flex; flex-wrap: wrap; gap: 16px; margin-bottom: 12px;
+    }
+    .checkbox-group label {
+      margin: 0; display: flex; align-items: center; gap: 6px; font-size: .98em; color: #a9b8ce;
+    }
+    @media (max-width: 900px) {
+      .container { padding: 4vw 1vw; }
+      .tab-content { padding: 8vw 3vw 1vw 3vw; }
+      .row { flex-direction: column; gap: 0; }
+    }.home-btn {
+  position: absolute;
+  top: 26px;
+  left: 38px;
+  background: linear-gradient(90deg,#c2e2f4 15%, #dbfaf4 80%);
+  color: #232949;
+  font-family: 'Montserrat', Arial, sans-serif;
+  font-weight: 700;
+  font-size: 1.06em;
+  text-decoration: none;
+  border-radius: 8px;
+  padding: 9px 20px 8px 20px;
+  box-shadow: 0 2px 14px #81bbd733;
+  transition: background .16s, color .13s;
+  border: none;
+  display: inline-block;
+  z-index: 100;
+}
+.home-btn:hover {
+  background: linear-gradient(90deg,#d7f6ff,#f0fff9 80%);
+  color: #181d2c;
+}
+@media (max-width: 700px) {
+  .home-btn { position: static; display: block; margin: 15px auto 0 auto; left: unset; top: unset; text-align: center; }
+}
+
+  </style>
+</head>
+<body>
+<a href="qadashboard.html" class="home-btn">&#8592; Home</a>
+  <h1>Master Batch Record</h1>
+  <div class="container">
+    <div class="tabs">
+      <button class="tab-btn active" onclick="showTab(0)">QA Label Checklist</button>
+      <button class="tab-btn" onclick="showTab(1)">Post-Harvest Tracking</button>
+      <button class="tab-btn" onclick="showTab(2)">Production Breakdown</button>
+    </div>
+    <!-- QA Label Checklist Tab -->
+    <div class="tab-content active">
+      <label>Product Name</label>
+      <input type="text" id="label_productName"/>
+      <label>Batch Number</label>
+      <input type="text" id="label_batchNumber"/>
+      <label>Production Date</label>
+      <input type="date" id="label_productionDate"/>
+      <label>Package Size</label>
+      <input type="text" id="label_packageSize"/>
+      <div class="checkbox-group" style="margin-top:14px;">
+        <label><input type="checkbox" id="label_matchName"/>Label matches product name and form</label>
+        <label><input type="checkbox" id="label_batchCorrect"/>Batch and lot number correct</label>
+        <label><input type="checkbox" id="label_dates"/>Dates accurate</label>
+        <label><input type="checkbox" id="label_weight"/>Net weight is correct</label>
+        <label><input type="checkbox" id="label_affix"/>Label affixed properly</label>
+        <label><input type="checkbox" id="label_crLight"/>CR/light-resistant packaging</label>
+      </div>
+      <label>Tested THC %</label>
+      <input type="text" id="label_thc"/>
+      <label>Tested CBD %</label>
+      <input type="text" id="label_cbd"/>
+      <label>COA Batch Number</label>
+      <input type="text" id="label_coa"/>
+      <label>QA Reviewer Initials</label>
+      <input type="text" id="label_reviewer"/>
+      <label>Comments</label>
+      <textarea id="label_comments"></textarea>
+    </div>
+    <!-- Post-Harvest Tracking Tab -->
+    <div class="tab-content">
+      <div class="row">
+        <div>
+          <label>Strain Name</label>
+          <input type="text" id="ph_strainName"/>
+        </div>
+        <div>
+          <label>Lot #</label>
+          <input type="text" id="ph_lotNumber"/>
+        </div>
+        <div>
+          <label>Plant Count</label>
+          <input type="number" id="ph_plantCount"/>
+        </div>
+      </div>
+      <label style="margin-top:18px;">Custody Log</label>
+      <table>
+        <thead>
+          <tr><th>Initials</th><th>Date / Time</th><th>Action</th><th>Weight (g)</th></tr>
+        </thead>
+        <tbody id="ph_custodyLog"></tbody>
+      </table>
+      <button class="add-btn" onclick="addRow('ph_custodyLog', 4, 'ph_custody')">Add Row</button>
+      <label>Comments</label>
+      <textarea id="ph_custodyComments"></textarea>
+      <label style="margin-top:18px;">Buck Down Log</label>
+      <table>
+        <thead>
+          <tr><th>Bud Weight (g)</th><th>Stem Weight (g)</th><th>Floor Bud (g)</th><th>Dry Waste (g)</th></tr>
+        </thead>
+        <tbody id="ph_buckLog"></tbody>
+      </table>
+      <button class="add-btn" onclick="addRow('ph_buckLog', 4, 'ph_buck')">Add Row</button>
+      <label>Comments</label>
+      <textarea id="ph_buckComments"></textarea>
+      <label style="margin-top:18px;">Trim Log</label>
+      <table>
+        <thead>
+          <tr><th>Bud Weight (g)</th><th>Trim Weight (g)</th><th>Floor Bud (g)</th><th>Dry Waste (g)</th></tr>
+        </thead>
+        <tbody id="ph_trimLog"></tbody>
+      </table>
+      <button class="add-btn" onclick="addRow('ph_trimLog', 4, 'ph_trim')">Add Row</button>
+      <label>Comments</label>
+      <textarea id="ph_trimComments"></textarea>
+      <label style="margin-top:18px;">Flower Sorting</label>
+      <table>
+        <thead>
+          <tr><th>Bin 1</th><th>Bin 2</th><th>Bin 3</th><th>Bin 4</th><th>Bin 5</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><input type="text" id="ph_bin1"/></td>
+            <td><input type="text" id="ph_bin2"/></td>
+            <td><input type="text" id="ph_bin3"/></td>
+            <td><input type="text" id="ph_bin4"/></td>
+            <td><input type="text" id="ph_bin5"/></td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="row">
+        <div>
+          <label>"A/B" Weight (g)</label>
+          <input type="number" id="ph_abWeight"/>
+        </div>
+        <div>
+          <label>"C" Weight (g)</label>
+          <input type="number" id="ph_cWeight"/>
+        </div>
+        <div>
+          <label>Shake/Trim (g)</label>
+          <input type="number" id="ph_shakeWeight"/>
+        </div>
+      </div>
+      <label>Comments</label>
+      <textarea id="ph_sortComments"></textarea>
+      <div class="row" style="margin-top:14px;">
+        <div>
+          <label>Post-Harvest Manager</label>
+          <input type="text" id="ph_manager"/>
+        </div>
+        <div>
+          <label>Date</label>
+          <input type="date" id="ph_date"/>
+        </div>
+        <div>
+          <label>QA/Compliance</label>
+          <input type="text" id="ph_qaName"/>
+        </div>
+        <div>
+          <label>Date</label>
+          <input type="date" id="ph_qaDate"/>
+        </div>
+      </div>
+      <label>Lot ID Barcode</label>
+      <input type="text" id="ph_barcode"/>
+    </div>
+    <!-- Production Breakdown Tab -->
+    <div class="tab-content">
+      <div class="checkbox-group">
+        <label><input type="checkbox" id="bd_flower"/>Flower</label>
+        <label><input type="checkbox" id="bd_conc"/>Concentrates</label>
+        <label><input type="checkbox" id="bd_infused"/>Infused</label>
+        <label><input type="checkbox" id="bd_edibles"/>Edibles</label>
+        <label><input type="checkbox" id="bd_topicals"/>Topicals</label>
+        <label><input type="checkbox" id="bd_vapes"/>Vapes</label>
+      </div>
+      <div class="checkbox-group">
+        <label><input type="checkbox" id="bd_bulk_flower"/>Bulk Flower</label>
+        <label><input type="checkbox" id="bd_distillate"/>Distillate/Extract</label>
+      </div>
+      <label>Strain / Material Description</label>
+      <input type="text" id="bd_materialDesc"/>
+      <div class="row">
+        <div>
+          <label>Initial Weight (g)</label>
+          <input type="number" id="bd_initialWeight"/>
+        </div>
+        <div>
+          <label>Unit Weight (g)</label>
+          <input type="number" id="bd_unitWeight"/>
+        </div>
+      </div>
+      <div class="row">
+        <div>
+          <label>Lot ID Barcode</label>
+          <input type="text" id="bd_lotBarcode"/>
+        </div>
+        <div>
+          <label>Batch ID Barcode</label>
+          <input type="text" id="bd_batchBarcode"/>
+        </div>
+      </div>
+      <label style="margin-top:18px;">Pre-Operation & Materials Check</label>
+      <table>
+        <thead>
+          <tr><th>Step</th><th>Performed By (Init/Date)</th><th>Verified By (Init/Date)</th></tr>
+        </thead>
+        <tbody id="bd_preopTable">
+          <tr>
+            <td>Area is clean & clear of prior materials</td>
+            <td><input type="text" id="bd_preop1_performed"/></td>
+            <td><input type="text" id="bd_preop1_verified"/></td>
+          </tr>
+          <tr>
+            <td>Input materials approved & within expiry</td>
+            <td><input type="text" id="bd_preop2_performed"/></td>
+            <td><input type="text" id="bd_preop2_verified"/></td>
+          </tr>
+          <tr>
+            <td>QA checklist is complete</td>
+            <td><input type="text" id="bd_preop3_performed"/></td>
+            <td><input type="text" id="bd_preop3_verified"/></td>
+          </tr>
+          <tr>
+            <td>Scales/equipment calibrated & documented</td>
+            <td><input type="text" id="bd_preop4_performed"/></td>
+            <td><input type="text" id="bd_preop4_verified"/></td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="row">
+        <div>
+          <label>Target Fill Wt (g)</label>
+          <input type="number" id="bd_targetFill"/>
+        </div>
+        <div>
+          <label>Check #1</label>
+          <input type="number" id="bd_check1"/>
+        </div>
+        <div>
+          <label>Check #2</label>
+          <input type="number" id="bd_check2"/>
+        </div>
+        <div>
+          <label>Check #3</label>
+          <input type="number" id="bd_check3"/>
+        </div>
+      </div>
+      <label style="margin-top:18px;">Yield Calculations</label>
+      <div class="row">
+        <div>
+          <label>Theoretical Yield (Initial/Unit)</label>
+          <input type="number" id="bd_theoreticalYield" readonly/>
+        </div>
+        <div>
+          <label>Actual Yield (Units Produced)</label>
+          <input type="number" id="bd_actualYield"/>
+        </div>
+        <div>
+          <label>Percent Yield</label>
+          <input type="number" id="bd_percentYield" readonly/>
+        </div>
+      </div>
+      <button class="add-btn" onclick="calculateYield()">Calculate Yields</button>
+      <label style="margin-top:18px;">Post-Production Review</label>
+      <table>
+        <thead>
+          <tr><th>Check</th><th>Yes / No</th><th>Comments</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Deviations, if any, have been recorded</td>
+            <td>
+              <select id="bd_devRecorded">
+                <option value=""></option>
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+              </select>
+            </td>
+            <td><input type="text" id="bd_devComments"/></td>
+          </tr>
+          <tr>
+            <td>Final product visually inspected & labeled</td>
+            <td>
+              <select id="bd_inspected">
+                <option value=""></option>
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+              </select>
+            </td>
+            <td><input type="text" id="bd_inspComments"/></td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="row">
+        <div>
+          <label>Production Reviewer Name/Signature</label>
+          <input type="text" id="bd_reviewer"/>
+        </div>
+        <div>
+          <label>Date</label>
+          <input type="date" id="bd_reviewDate"/>
+        </div>
+      </div>
+    </div>
+  </div>
+<script>
+  // Tab switching logic
+  function showTab(idx) {
+    document.querySelectorAll('.tab-btn').forEach((btn, i) => {
+      btn.classList.toggle('active', i === idx);
+    });
+    document.querySelectorAll('.tab-content').forEach((tab, i) => {
+      tab.classList.toggle('active', i === idx);
+    });
+  }
+  // Table row adders for postharvest
+  function addRow(sectionId, colCount, logType) {
+    const section = document.getElementById(sectionId);
+    const tr = document.createElement("tr");
+    for (let i = 0; i < colCount; i++) {
+      const input = document.createElement("input");
+      if (sectionId.includes('custodyLog') && i === 1) input.type = "datetime-local";
+      else if (["buckLog", "trimLog"].some(s => sectionId.includes(s)) || (sectionId.includes('custodyLog') && i === 3)) input.type = "number";
+      else input.type = "text";
+      input.style.width = "98%";
+      input.style.boxSizing = "border-box";
+      input.onchange = saveForm;
+      tr.appendChild(document.createElement("td")).appendChild(input);
+    }
+    section.appendChild(tr);
+    saveForm();
+  }
+  // Save/Load functions for localStorage
+  function saveForm() {
+    document.querySelectorAll("input, textarea, select").forEach(input => {
+      if (input.id) localStorage.setItem("mbr_" + input.id, input.value);
+    });
+    // Save dynamic tables for postharvest
+    ['ph_custodyLog', 'ph_buckLog', 'ph_trimLog'].forEach(function(tableId) {
+      var rows = [];
+      document.querySelectorAll("#" + tableId + " tr").forEach(tr => {
+        var row = [];
+        tr.querySelectorAll("input").forEach(input => row.push(input.value));
+        rows.push(row);
+      });
+      localStorage.setItem("mbr_table_" + tableId, JSON.stringify(rows));
+    });
+  }
+  function loadForm() {
+    document.querySelectorAll("input, textarea, select").forEach(input => {
+      if (input.id && localStorage.getItem("mbr_" + input.id)) {
+        input.value = localStorage.getItem("mbr_" + input.id);
+      }
+    });
+    // Load dynamic tables for postharvest
+    ['ph_custodyLog', 'ph_buckLog', 'ph_trimLog'].forEach(function(tableId) {
+      let rows = [];
+      try { rows = JSON.parse(localStorage.getItem("mbr_table_" + tableId)) || []; } catch(e){}
+      const tbody = document.getElementById(tableId);
+      tbody.innerHTML = "";
+      rows.forEach(rowArr => {
+        const tr = document.createElement("tr");
+        rowArr.forEach((val, idx) => {
+          const input = document.createElement("input");
+          input.type = (tableId.includes("custodyLog") && idx === 1) ? "datetime-local" : "text";
+          if (["buckLog", "trimLog"].some(s => tableId.includes(s)) || (tableId.includes('custodyLog') && idx === 3)) input.type = "number";
+          input.value = val || "";
+          input.style.width = "98%";
+          input.style.boxSizing = "border-box";
+          input.onchange = saveForm;
+          const td = document.createElement("td");
+          td.appendChild(input);
+          tr.appendChild(td);
+        });
+        tbody.appendChild(tr);
+      });
+      // Always start with at least 1 row
+      if (tbody.children.length === 0) addRow(tableId, 4, tableId.replace('Log',''));
+    });
+  }
+  // Yield calculation
+  function calculateYield() {
+    let initial = parseFloat(document.getElementById("bd_initialWeight").value) || 0;
+    let unit = parseFloat(document.getElementById("bd_unitWeight").value) || 0;
+    let actual = parseFloat(document.getElementById("bd_actualYield").value) || 0;
+    let theoretical = (unit > 0) ? (initial / unit) : 0;
+    document.getElementById("bd_theoreticalYield").value = theoretical ? theoretical.toFixed(2) : "";
+    document.getElementById("bd_percentYield").value = (theoretical > 0 && actual > 0)
+      ? ((actual / theoretical) * 100).toFixed(2)
+      : "";
+    saveForm();
+  }
+  // Attach listeners for localStorage persistence
+  window.onload = function () {
+    loadForm();
+    document.querySelectorAll("input, textarea, select").forEach(e => {
+      e.oninput = saveForm;
+    });
+  };
+</script>
+</body>
+</html>

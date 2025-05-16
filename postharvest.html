@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Post-Harvest Tracking Form</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #181d2c;
+      color: #e3e7ee;
+      margin: 0;
+      padding: 0;
+    }
+    h1 {
+      text-align: center;
+      margin: 36px 0 24px 0;
+      color: #78cefa;
+      letter-spacing: 1px;
+      font-size: 2em;
+    }
+    .container {
+      max-width: 900px;
+      margin: 0 auto 40px auto;
+      padding: 24px;
+      background: #222741;
+      border-radius: 16px;
+      box-shadow: 0 6px 32px #14162b66;
+    }
+    section {
+      margin-bottom: 28px;
+    }
+    h2 {
+      margin: 0 0 16px 0;
+      color: #8be7ff;
+      font-size: 1.12em;
+      font-weight: 600;
+      letter-spacing: .5px;
+    }
+    label {
+      margin-bottom: 6px;
+      display: block;
+      color: #bfd6ee;
+      font-size: 0.98em;
+    }
+    input[type="text"], input[type="number"], input[type="date"], input[type="datetime-local"] {
+      width: 100%;
+      box-sizing: border-box;
+      padding: 9px 12px;
+      margin-bottom: 10px;
+      margin-top: 1px;
+      background: #293150;
+      color: #e3e7ee;
+      border: 1px solid #425481;
+      border-radius: 7px;
+      font-size: 1em;
+    }
+    table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      background: #20263d;
+      border-radius: 7px;
+      overflow: hidden;
+      margin-bottom: 4px;
+    }
+    th, td {
+      border-bottom: 1px solid #293150;
+      padding: 0;
+      text-align: center;
+      vertical-align: middle;
+      background: #20263d;
+    }
+    th {
+      color: #cbe7ff;
+      font-weight: 500;
+      font-size: 0.97em;
+      padding: 9px 0;
+    }
+    td {
+      padding: 0;
+    }
+    td input[type="text"],
+    td input[type="number"],
+    td input[type="datetime-local"] {
+      width: 98%;
+      margin: 5px 0;
+      font-size: 0.98em;
+      background: #252d46;
+      border: 1px solid #425481;
+      border-radius: 6px;
+      padding: 8px;
+    }
+    .add-btn {
+      margin: 8px 0 8px 0;
+      padding: 8px 18px;
+      background: linear-gradient(90deg,#53e3fa,#9bffdd);
+      border: none;
+      border-radius: 7px;
+      font-weight: 600;
+      color: #151a25;
+      cursor: pointer;
+      font-size: 1em;
+      transition: background .18s;
+    }
+    .add-btn:hover {
+      background: linear-gradient(90deg,#7beeff,#c2ffe4);
+    }
+    textarea {
+      width: 100%;
+      box-sizing: border-box;
+      min-height: 46px;
+      max-height: 96px;
+      margin-top: 7px;
+      padding: 10px;
+      font-size: 1em;
+      background: #293150;
+      color: #e3e7ee;
+      border: 1px solid #425481;
+      border-radius: 7px;
+      resize: vertical;
+      margin-bottom: 0;
+    }
+    .row { display: flex; gap: 16px; }
+    .row > div { flex: 1; }
+    @media (max-width: 700px) {
+      .container { padding: 4vw 1vw; }
+      table, thead, tbody, th, td, tr { font-size: 0.98em; }
+      .row { flex-direction: column; gap: 0; }
+    }
+  </style>
+</head>
+<body>
+  <h1>Post-Harvest Tracking Form</h1>
+  <div class="container">
+
+    <section>
+      <h2>1. Batch Details</h2>
+      <div class="row">
+        <div>
+          <label>Strain Name</label>
+          <input type="text" id="strainName"/>
+        </div>
+        <div>
+          <label>Lot #</label>
+          <input type="text" id="lotNumber"/>
+        </div>
+        <div>
+          <label>Plant Count</label>
+          <input type="number" id="plantCount"/>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>2. Custody Log</h2>
+      <table>
+        <thead>
+          <tr><th>Initials</th><th>Date / Time</th><th>Action</th><th>Weight (g)</th></tr>
+        </thead>
+        <tbody id="custodyLog"></tbody>
+      </table>
+      <button class="add-btn" onclick="addRow('custodyLog', 4, 'custody')">Add Row</button>
+      <label for="custodyComments">Comments</label>
+      <textarea id="custodyComments"></textarea>
+    </section>
+
+    <section>
+      <h2>3. Buck Down Log</h2>
+      <table>
+        <thead>
+          <tr><th>Bud Weight (g)</th><th>Stem Weight (g)</th><th>Floor Bud (g)</th><th>Dry Waste (g)</th></tr>
+        </thead>
+        <tbody id="buckLog"></tbody>
+      </table>
+      <button class="add-btn" onclick="addRow('buckLog', 4, 'buck')">Add Row</button>
+      <label for="buckComments">Comments</label>
+      <textarea id="buckComments"></textarea>
+    </section>
+
+    <section>
+      <h2>4. Trim Log</h2>
+      <table>
+        <thead>
+          <tr><th>Bud Weight (g)</th><th>Trim Weight (g)</th><th>Floor Bud (g)</th><th>Dry Waste (g)</th></tr>
+        </thead>
+        <tbody id="trimLog"></tbody>
+      </table>
+      <button class="add-btn" onclick="addRow('trimLog', 4, 'trim')">Add Row</button>
+      <label for="trimComments">Comments</label>
+      <textarea id="trimComments"></textarea>
+    </section>
+
+    <section>
+      <h2>5. Flower Sorting</h2>
+      <table>
+        <thead>
+          <tr><th>Bin 1</th><th>Bin 2</th><th>Bin 3</th><th>Bin 4</th><th>Bin 5</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><input type="text" id="bin1"/></td>
+            <td><input type="text" id="bin2"/></td>
+            <td><input type="text" id="bin3"/></td>
+            <td><input type="text" id="bin4"/></td>
+            <td><input type="text" id="bin5"/></td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="row">
+        <div>
+          <label>"A/B" Weight (g)</label>
+          <input type="number" id="abWeight"/>
+        </div>
+        <div>
+          <label>"C" Weight (g)</label>
+          <input type="number" id="cWeight"/>
+        </div>
+        <div>
+          <label>Shake/Trim (g)</label>
+          <input type="number" id="shakeWeight"/>
+        </div>
+      </div>
+      <label for="sortComments">Comments</label>
+      <textarea id="sortComments"></textarea>
+    </section>
+
+    <section>
+      <h2>6. Final Review & Sign-Off</h2>
+      <div class="row">
+        <div>
+          <label>Post-Harvest Manager</label>
+          <input type="text" id="phManager"/>
+        </div>
+        <div>
+          <label>Date</label>
+          <input type="date" id="phDate"/>
+        </div>
+        <div>
+          <label>QA/Compliance</label>
+          <input type="text" id="qaName"/>
+        </div>
+        <div>
+          <label>Date</label>
+          <input type="date" id="qaDate"/>
+        </div>
+      </div>
+      <label>Lot ID Barcode</label>
+      <input type="text" id="barcode"/>
+    </section>
+  </div>
+
+<script>
+  // Helper for localStorage
+  function saveForm() {
+    document.querySelectorAll("input, textarea").forEach(input => {
+      if (input.id) localStorage.setItem("ph_" + input.id, input.value);
+    });
+    // Save table data
+    ['custodyLog', 'buckLog', 'trimLog'].forEach(function(tableId) {
+      var rows = [];
+      document.querySelectorAll("#" + tableId + " tr").forEach(tr => {
+        var row = [];
+        tr.querySelectorAll("input").forEach(input => row.push(input.value));
+        rows.push(row);
+      });
+      localStorage.setItem("ph_table_" + tableId, JSON.stringify(rows));
+    });
+  }
+  function loadForm() {
+    document.querySelectorAll("input, textarea").forEach(input => {
+      if (input.id && localStorage.getItem("ph_" + input.id)) {
+        input.value = localStorage.getItem("ph_" + input.id);
+      }
+    });
+    // Load table data
+    ['custodyLog', 'buckLog', 'trimLog'].forEach(function(tableId) {
+      let rows = [];
+      try { rows = JSON.parse(localStorage.getItem("ph_table_" + tableId)) || []; } catch(e){}
+      const tbody = document.getElementById(tableId);
+      tbody.innerHTML = "";
+      rows.forEach(rowArr => {
+        const tr = document.createElement("tr");
+        rowArr.forEach((val, idx) => {
+          const input = document.createElement("input");
+          input.type = (tableId === "custodyLog" && idx === 1) ? "datetime-local" : "text";
+          if (["buckLog", "trimLog"].includes(tableId) || (tableId === "custodyLog" && [3].includes(idx))) input.type = "number";
+          input.value = val || "";
+          input.style.width = "98%";
+          input.style.boxSizing = "border-box";
+          input.onchange = saveForm;
+          const td = document.createElement("td");
+          td.appendChild(input);
+          tr.appendChild(td);
+        });
+        tbody.appendChild(tr);
+      });
+      // Always start with at least 1 row
+      if (tbody.children.length === 0) addRow(tableId, 4, tableId.replace('Log',''));
+    });
+  }
+  function addRow(sectionId, colCount, logType) {
+    const section = document.getElementById(sectionId);
+    const tr = document.createElement("tr");
+    for (let i = 0; i < colCount; i++) {
+      const input = document.createElement("input");
+      if (sectionId === "custodyLog" && i === 1) input.type = "datetime-local";
+      else if (["buckLog", "trimLog"].includes(sectionId) || (sectionId === "custodyLog" && i === 3)) input.type = "number";
+      else input.type = "text";
+      input.style.width = "98%";
+      input.style.boxSizing = "border-box";
+      input.onchange = saveForm;
+      tr.appendChild(document.createElement("td")).appendChild(input);
+    }
+    section.appendChild(tr);
+    saveForm();
+  }
+  // Attach listeners for localStorage persistence
+  window.onload = function () {
+    loadForm();
+    document.querySelectorAll("input, textarea").forEach(e => {
+      e.oninput = saveForm;
+    });
+  };
+</script>
+</body>
+</html>

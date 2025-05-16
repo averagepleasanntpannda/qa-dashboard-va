@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Recall Initiation Form</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #0b0f1a;
+      color: #e0e0e0;
+      padding: 20px;
+    }
+    h1, h2 {
+      color: #76c8f0;
+    }
+    section {
+      background: #161a28;
+      padding: 20px;
+      border-radius: 10px;
+      margin-bottom: 30px;
+      border: 1px solid #2c2f40;
+    }
+    label {
+      display: block;
+      margin-top: 15px;
+    }
+    input[type="text"], input[type="number"], input[type="date"], textarea, select {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      background: #1d2133;
+      color: #fff;
+      border: 1px solid #333;
+      border-radius: 6px;
+    }
+    button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      background: #76c8f0;
+      color: #000;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+<h1>Recall Initiation Form</h1>
+
+<section>
+  <h2>Recall Header</h2>
+  <label>Recall Number</label>
+  <input type="text" />
+
+  <label>Date Initiated</label>
+  <input type="date" />
+
+  <label>Initiated By</label>
+  <input type="text" />
+
+  <label>Product Name</label>
+  <input type="text" />
+
+  <label>Batch/Lot Number</label>
+  <input type="text" />
+
+  <label>Issue Description</label>
+  <textarea rows="4"></textarea>
+</section>
+
+<section>
+  <h2>Classification</h2>
+  <label>Recall Class</label>
+  <select>
+    <option value="">Select</option>
+    <option value="I">Class I – Serious risk</option>
+    <option value="II">Class II – Temporary or reversible effects</option>
+    <option value="III">Class III – Not likely to cause harm</option>
+  </select>
+
+  <label>Risk Justification</label>
+  <textarea rows="3"></textarea>
+</section>
+
+<section>
+  <h2>Recall Actions</h2>
+  <label>Locations Affected</label>
+  <textarea rows="3"></textarea>
+
+  <label>Notification Method</label>
+  <input type="text" />
+
+  <label>Corrective Actions</label>
+  <textarea rows="3"></textarea>
+</section>
+
+<section>
+  <h2>Recall Team</h2>
+  <label>Team Lead</label>
+  <input type="text" />
+
+  <label>Contact Info</label>
+  <input type="text" />
+
+  <label>Team Members</label>
+  <textarea rows="2"></textarea>
+</section>
+
+<section>
+  <h2>Final Review</h2>
+  <label>QA Signature</label>
+  <input type="text" />
+
+  <label>Date</label>
+  <input type="date" />
+</section>
+
+</body>
+</html>

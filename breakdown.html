@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Production Breakdown Worksheet</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #181d2c;
+      color: #e3e7ee;
+      margin: 0;
+      padding: 0;
+    }
+    h1 {
+      text-align: center;
+      margin: 36px 0 24px 0;
+      color: #78cefa;
+      letter-spacing: 1px;
+      font-size: 2em;
+    }
+    .container {
+      max-width: 900px;
+      margin: 0 auto 40px auto;
+      padding: 24px;
+      background: #222741;
+      border-radius: 16px;
+      box-shadow: 0 6px 32px #14162b66;
+    }
+    section {
+      margin-bottom: 28px;
+    }
+    h2 {
+      margin: 0 0 16px 0;
+      color: #8be7ff;
+      font-size: 1.12em;
+      font-weight: 600;
+      letter-spacing: .5px;
+    }
+    label {
+      margin-bottom: 6px;
+      display: block;
+      color: #bfd6ee;
+      font-size: 0.98em;
+    }
+    .checkbox-group {
+      display: flex; flex-wrap: wrap; gap: 16px;
+      margin-bottom: 12px;
+    }
+    .checkbox-group label {
+      margin: 0;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: .98em;
+      color: #a9b8ce;
+    }
+    input[type="text"], input[type="number"], input[type="date"] {
+      width: 100%;
+      box-sizing: border-box;
+      padding: 9px 12px;
+      margin-bottom: 10px;
+      margin-top: 1px;
+      background: #293150;
+      color: #e3e7ee;
+      border: 1px solid #425481;
+      border-radius: 7px;
+      font-size: 1em;
+    }
+    table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      background: #20263d;
+      border-radius: 7px;
+      overflow: hidden;
+      margin-bottom: 4px;
+    }
+    th, td {
+      border-bottom: 1px solid #293150;
+      padding: 0;
+      text-align: center;
+      vertical-align: middle;
+      background: #20263d;
+    }
+    th {
+      color: #cbe7ff;
+      font-weight: 500;
+      font-size: 0.97em;
+      padding: 9px 0;
+    }
+    td {
+      padding: 0;
+    }
+    td input[type="text"],
+    td input[type="number"],
+    td input[type="date"] {
+      width: 98%;
+      margin: 5px 0;
+      font-size: 0.98em;
+      background: #252d46;
+      border: 1px solid #425481;
+      border-radius: 6px;
+      padding: 8px;
+    }
+    .add-btn {
+      margin: 8px 0 8px 0;
+      padding: 8px 18px;
+      background: linear-gradient(90deg,#53e3fa,#9bffdd);
+      border: none;
+      border-radius: 7px;
+      font-weight: 600;
+      color: #151a25;
+      cursor: pointer;
+      font-size: 1em;
+      transition: background .18s;
+    }
+    .add-btn:hover {
+      background: linear-gradient(90deg,#7beeff,#c2ffe4);
+    }
+    textarea {
+      width: 100%;
+      box-sizing: border-box;
+      min-height: 46px;
+      max-height: 96px;
+      margin-top: 7px;
+      padding: 10px;
+      font-size: 1em;
+      background: #293150;
+      color: #e3e7ee;
+      border: 1px solid #425481;
+      border-radius: 7px;
+      resize: vertical;
+      margin-bottom: 0;
+    }
+    .row { display: flex; gap: 16px; }
+    .row > div { flex: 1; }
+    @media (max-width: 700px) {
+      .container { padding: 4vw 1vw; }
+      table, thead, tbody, th, td, tr { font-size: 0.98em; }
+      .row { flex-direction: column; gap: 0; }
+    }
+  </style>
+</head>
+<body>
+  <h1>Production Breakdown Worksheet</h1>
+  <div class="container">
+
+    <section>
+      <h2>1. Product & Batch Details</h2>
+      <div class="checkbox-group">
+        <label><input type="checkbox" id="prod_flower"/>Flower</label>
+        <label><input type="checkbox" id="prod_conc"/>Concentrates</label>
+        <label><input type="checkbox" id="prod_infused"/>Infused</label>
+        <label><input type="checkbox" id="prod_edibles"/>Edibles</label>
+        <label><input type="checkbox" id="prod_topicals"/>Topicals</label>
+        <label><input type="checkbox" id="prod_vapes"/>Vapes</label>
+      </div>
+      <div class="checkbox-group">
+        <label><input type="checkbox" id="input_bulk_flower"/>Bulk Flower</label>
+        <label><input type="checkbox" id="input_distillate"/>Distillate/Extract</label>
+      </div>
+      <label>Strain / Material Description</label>
+      <input type="text" id="materialDesc"/>
+      <div class="row">
+        <div>
+          <label>Initial Weight (g)</label>
+          <input type="number" id="initialWeight"/>
+        </div>
+        <div>
+          <label>Unit Weight (g)</label>
+          <input type="number" id="unitWeight"/>
+        </div>
+      </div>
+      <div class="row">
+        <div>
+          <label>Lot ID Barcode</label>
+          <input type="text" id="lotBarcode"/>
+        </div>
+        <div>
+          <label>Batch ID Barcode</label>
+          <input type="text" id="batchBarcode"/>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>2. Pre-Operation & Materials Check</h2>
+      <table>
+        <thead>
+          <tr><th>Step</th><th>Performed By (Init/Date)</th><th>Verified By (Init/Date)</th></tr>
+        </thead>
+        <tbody id="preopTable">
+          <tr>
+            <td>Area is clean & clear of prior materials</td>
+            <td><input type="text" id="preop1_performed"/></td>
+            <td><input type="text" id="preop1_verified"/></td>
+          </tr>
+          <tr>
+            <td>Input materials approved & within expiry</td>
+            <td><input type="text" id="preop2_performed"/></td>
+            <td><input type="text" id="preop2_verified"/></td>
+          </tr>
+          <tr>
+            <td>QA checklist is complete</td>
+            <td><input type="text" id="preop3_performed"/></td>
+            <td><input type="text" id="preop3_verified"/></td>
+          </tr>
+          <tr>
+            <td>Scales/equipment calibrated & documented</td>
+            <td><input type="text" id="preop4_performed"/></td>
+            <td><input type="text" id="preop4_verified"/></td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section>
+      <h2>3. Weigh Checks</h2>
+      <div class="row">
+        <div>
+          <label>Target Fill Wt (g)</label>
+          <input type="number" id="targetFill"/>
+        </div>
+        <div>
+          <label>Check #1</label>
+          <input type="number" id="check1"/>
+        </div>
+        <div>
+          <label>Check #2</label>
+          <input type="number" id="check2"/>
+        </div>
+        <div>
+          <label>Check #3</label>
+          <input type="number" id="check3"/>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>4. Yield Calculations</h2>
+      <div class="row">
+        <div>
+          <label>Theoretical Yield (Initial/Unit)</label>
+          <input type="number" id="theoreticalYield" readonly/>
+        </div>
+        <div>
+          <label>Actual Yield (Units Produced)</label>
+          <input type="number" id="actualYield"/>
+        </div>
+        <div>
+          <label>Percent Yield</label>
+          <input type="number" id="percentYield" readonly/>
+        </div>
+      </div>
+      <button class="add-btn" onclick="calculateYield()">Calculate Yields</button>
+    </section>
+
+    <section>
+      <h2>5. Post-Production Review</h2>
+      <table>
+        <thead>
+          <tr><th>Check</th><th>Yes / No</th><th>Comments</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Deviations, if any, have been recorded</td>
+            <td>
+              <select id="devRecorded">
+                <option value=""></option>
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+              </select>
+            </td>
+            <td><input type="text" id="devComments"/></td>
+          </tr>
+          <tr>
+            <td>Final product visually inspected & labeled</td>
+            <td>
+              <select id="inspected">
+                <option value=""></option>
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+              </select>
+            </td>
+            <td><input type="text" id="inspComments"/></td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="row">
+        <div>
+          <label>Production Reviewer Name/Signature</label>
+          <input type="text" id="reviewer"/>
+        </div>
+        <div>
+          <label>Date</label>
+          <input type="date" id="reviewDate"/>
+        </div>
+      </div>
+    </section>
+  </div>
+
+<script>
+  // Save/Load functions for localStorage
+  function saveForm() {
+    document.querySelectorAll("input, select").forEach(input => {
+      if (input.id) localStorage.setItem("bd_" + input.id, input.value);
+    });
+  }
+  function loadForm() {
+    document.querySelectorAll("input, select").forEach(input => {
+      if (input.id && localStorage.getItem("bd_" + input.id)) {
+        input.value = localStorage.getItem("bd_" + input.id);
+      }
+    });
+  }
+  // Yield calculation
+  function calculateYield() {
+    let initial = parseFloat(document.getElementById("initialWeight").value) || 0;
+    let unit = parseFloat(document.getElementById("unitWeight").value) || 0;
+    let actual = parseFloat(document.getElementById("actualYield").value) || 0;
+    let theoretical = (unit > 0) ? (initial / unit) : 0;
+    document.getElementById("theoreticalYield").value = theoretical ? theoretical.toFixed(2) : "";
+    document.getElementById("percentYield").value = (theoretical > 0 && actual > 0)
+      ? ((actual / theoretical) * 100).toFixed(2)
+      : "";
+    saveForm();
+  }
+  // Attach listeners for localStorage persistence
+  window.onload = function () {
+    loadForm();
+    document.querySelectorAll("input, select").forEach(e => {
+      e.oninput = saveForm;
+    });
+  };
+</script>
+</body>
+</html>

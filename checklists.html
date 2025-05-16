@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>QA Checklist</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+  <style>
+    body { font-family: 'Segoe UI', sans-serif; margin: 20px; background: #f4f4f4; }
+    form {
+      background: white; padding: 20px; max-width: 800px;
+      margin: auto; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    label { display: block; margin: 12px 0 6px; font-weight: bold; }
+    .checklist-group label { display: block; font-weight: normal; margin: 5px 0; }
+    button {
+      margin-top: 20px; padding: 10px 20px;
+      background: #2c3e50; color: white; border: none;
+      border-radius: 4px; cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <h1 style="text-align:center;">QA Facility Checklist</h1>
+  <form id="checklist-form">
+    <label>Date</label>
+    <input type="date" name="checklistDate" required />
+
+    <label>Performed By</label>
+    <input type="text" name="performedBy" required />
+
+    <label>Checklist Items</label>
+    <div class="checklist-group">
+      <label><input type="checkbox" name="item" value="Floors Clean" /> Floors Clean</label>
+      <label><input type="checkbox" name="item" value="Equipment Sanitized" /> Equipment Sanitized</label>
+      <label><input type="checkbox" name="item" value="CR Packaging Stocked" /> CR Packaging Stocked</label>
+      <label><input type="checkbox" name="item" value="Waste Properly Stored" /> Waste Properly Stored</label>
+      <label><input type="checkbox" name="item" value="No Expired Inventory" /> No Expired Inventory</label>
+    </div>
+
+    <button type="button" onclick="downloadChecklist()">Download PDF</button>
+  </form>
+
+  <script>
+    function downloadChecklist() {
+      const form = document.getElementById("checklist-form");
+      html2pdf().from(form).save("QA_Checklist.pdf");
+    }
+  </script>
+
+</body>
+</html>

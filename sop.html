@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>SOP Library | Verano Virginia QA</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:700,600,400&display=swap" rel="stylesheet">
+  <style>
+    body {font-family: 'Montserrat', Arial, sans-serif; background: #181d2c; color: #e3e7ee; margin: 0; padding: 0;}
+    .header {text-align: center; margin: 48px 0 10px 0;}
+    h1 {margin: 0 0 6px 0; color: #fff; font-family: 'Montserrat', Arial, sans-serif; font-weight: 700; font-size: 2em; letter-spacing: 1.5px; text-transform: uppercase;}
+    .desc {color: #b6c8db; font-size: 1.1em; font-family: 'Montserrat', Arial, sans-serif; margin-bottom: 38px;}
+    .sop-table-container {max-width: 1100px; margin: 0 auto 60px auto; padding: 0 0 24px 0;}
+    table {width: 100%; border-collapse: separate; border-spacing: 0; background: #222741; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 24px #14162b33;}
+    thead th {background: #28315a; color: #a3d1f2; font-size: 1.08em; font-weight: 700; padding: 18px 6px;}
+    tbody td {padding: 16px 10px; border-bottom: 1px solid #323b5b; font-size: 1.01em;}
+    tbody tr:last-child td {border-bottom: none;}
+    .sop-code {font-family: 'Montserrat', Arial, sans-serif; color: #7fd8ff; font-weight: 600; font-size: 1.07em;}
+    .sop-title {color: #e3e7ee; font-weight: 700; letter-spacing: .7px; font-size: 1.04em; text-transform: uppercase;}
+    .sop-summary {color: #b1c2d9; font-size: .97em;}
+    .sop-actions {display: flex; gap: 11px;}
+    .sop-link, .sop-preview {text-decoration: none; border: none; font-family: 'Montserrat', Arial, sans-serif; padding: 8px 16px; border-radius: 7px; font-size: 1em; font-weight: 700;
+      background: linear-gradient(90deg,#c2e2f4 15%, #dbfaf4 80%); color: #222741; box-shadow: 0 0 8px #81bbd733; transition: background .16s; cursor: pointer;}
+    .sop-link:hover, .sop-preview:hover {background: linear-gradient(90deg,#d7f6ff,#f0fff9 80%);}
+    @media (max-width: 700px) {
+      .sop-table-container {padding: 0 2vw;}
+      table, thead, tbody, th, td, tr {font-size: 0.95em;}
+      .sop-actions {flex-direction: column;}
+      .sop-link, .sop-preview {width: 100%; text-align: center;}
+      th, td {padding: 12px 4px;}
+    }.home-btn {
+  position: absolute;
+  top: 26px;
+  left: 38px;
+  background: linear-gradient(90deg,#c2e2f4 15%, #dbfaf4 80%);
+  color: #232949;
+  font-family: 'Montserrat', Arial, sans-serif;
+  font-weight: 700;
+  font-size: 1.06em;
+  text-decoration: none;
+  border-radius: 8px;
+  padding: 9px 20px 8px 20px;
+  box-shadow: 0 2px 14px #81bbd733;
+  transition: background .16s, color .13s;
+  border: none;
+  display: inline-block;
+  z-index: 100;
+}
+.home-btn:hover {
+  background: linear-gradient(90deg,#d7f6ff,#f0fff9 80%);
+  color: #181d2c;
+}
+@media (max-width: 700px) {
+  .home-btn { position: static; display: block; margin: 15px auto 0 auto; left: unset; top: unset; text-align: center; }
+}
+
+  </style>
+</head>
+<body>
+<a href="qadashboard.html" class="home-btn">&#8592; Home</a>
+  <div class="header">
+    <h1>SOP Library</h1>
+    <div class="desc">All active SOPs and compliance documents for Verano Virginia. Click to preview or download.</div>
+  </div>
+  <div class="sop-table-container">
+    <table>
+      <thead>
+        <tr>
+          <th style="width:10%">Code</th>
+          <th style="width:24%">Title</th>
+          <th style="width:38%">Summary</th>
+          <th style="width:14%">Download</th>
+          <th style="width:14%">Preview</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Alphabetized by code, fill in with your exact PDF file names and summaries as needed -->
+        <tr>
+          <td class="sop-code">FAC-VA-001</td>
+          <td class="sop-title">Facility SOP</td>
+          <td class="sop-summary">Procedures and checklist for facility operations and compliance.</td>
+          <td class="sop-actions"><a class="sop-link" href="FAC-VA-001_Facility_SOP.pdf" target="_blank">Download</a></td>
+          <td class="sop-actions"><button class="sop-preview" onclick="previewPDF('FAC-VA-001_Facility_SOP.pdf')">Preview</button></td>
+        </tr>
+        <tr>
+          <td class="sop-code">FORM-VA-001</td>
+          <td class="sop-title">Batch Template</td>
+          <td class="sop-summary">Template for all batch production documentation.</td>
+          <td class="sop-actions"><a class="sop-link" href="FORM-VA-001_Template.pdf" target="_blank">Download</a></td>
+          <td class="sop-actions"><button class="sop-preview" onclick="previewPDF('FORM-VA-001_Template.pdf')">Preview</button></td>
+        </tr>
+        <tr>
+          <td class="sop-code">FORM-VA-002</td>
+          <td class="sop-title">Production Breakdown</td>
+          <td class="sop-summary">Yield calculation and production data worksheet.</td>
+          <td class="sop-actions"><a class="sop-link" href="FORM-VA-002_Production_Breakdown.pdf" target="_blank">Download</a></td>
+          <td class="sop-actions"><button class="sop-preview" onclick="previewPDF('FORM-VA-002_Production_Breakdown.pdf')">Preview</button></td>
+        </tr>
+        <tr>
+          <td class="sop-code">FORM-VA-003</td>
+          <td class="sop-title">Post-Harvest Tracking</td>
+          <td class="sop-summary">Custody, buck-down, trim log, and product weights.</td>
+          <td class="sop-actions"><a class="sop-link" href="FORM-VA-003_Post_Harvest_Tracking_Log.pdf" target="_blank">Download</a></td>
+          <td class="sop-actions"><button class="sop-preview" onclick="previewPDF('FORM-VA-003_Post_Harvest_Tracking_Log.pdf')">Preview</button></td>
+        </tr>
+        <tr>
+          <td class="sop-code">FORM-VA-004</td>
+          <td class="sop-title">Deviation/CAPA</td>
+          <td class="sop-summary">Corrective action and deviation reporting form.</td>
+          <td class="sop-actions"><a class="sop-link" href="FORM-VA-004_Deviation_CAPA.pdf" target="_blank">Download</a></td>
+          <td class="sop-actions"><button class="sop-preview" onclick="previewPDF('FORM-VA-004_Deviation_CAPA.pdf')">Preview</button></td>
+        </tr>
+        <tr>
+          <td class="sop-code">FORM-VA-005</td>
+          <td class="sop-title">Root Cause Analysis</td>
+          <td class="sop-summary">Form for tracking and analyzing root causes in incidents.</td>
+          <td class="sop-actions"><a class="sop-link" href="FORM-VA-005_Root_Cause_Analysis.pdf" target="_blank">Download</a></td>
+          <td class="sop-actions"><button class="sop-preview" onclick="previewPDF('FORM-VA-005_Root_Cause_Analysis.pdf')">Preview</button></td>
+        </tr>
+        <tr>
+          <td class="sop-code">FORM-VA-006</td>
+          <td class="sop-title">Internal Audit Checklist</td>
+          <td class="sop-summary">Internal audit checklist for cGMP and state compliance.</td>
+          <td class="sop-actions"><a class="sop-link" href="FORM-VA-006_Internal_Audit_Checklist.pdf" target="_blank">Download</a></td>
+          <td class="sop-actions"><button class="sop-preview" onclick="previewPDF('FORM-VA-006_Internal_Audit_Checklist.pdf')">Preview</button></td>
+        </tr>
+        <tr>
+          <td class="sop-code">FORM-VA-007</td>
+          <td class="sop-title">Recall Initiation</td>
+          <td class="sop-summary">Document to initiate and track product recalls.</td>
+          <td class="sop-actions"><a class="sop-link" href="FORM-VA-007_Recall_Initiation.pdf" target="_blank">Download</a></td>
+          <td class="sop-actions"><button class="sop-preview" onclick="previewPDF('FORM-VA-007_Recall_Initiation.pdf')">Preview</button></td>
+        </tr>
+        <tr>
+          <td class="sop-code">QA-VA-001</td>
+          <td class="sop-title">Quality Manual SOP</td>
+          <td class="sop-summary">Master SOP for all QA processes and policies.</td>
+          <td class="sop-actions"><a class="sop-link" href="QA-VA-001_Quality_Manual_SOP.pdf" target="_blank">Download</a></td>
+          <td class="sop-actions"><button class="sop-preview" onclick="previewPDF('QA-VA-001_Quality_Manual_SOP.pdf')">Preview</button></td>
+        </tr>
+        <tr>
+          <td class="sop-code">QA-VA-002</td>
+          <td class="sop-title">Label Checklist</td>
+          <td class="sop-summary">Labeling review and compliance checklist.</td>
+          <td class="sop-actions"><a class="sop-link" href="QA-VA-002_Label_Checklist.pdf" target="_blank">Download</a></td>
+          <td class="sop-actions"><button class="sop-preview" onclick="previewPDF('QA-VA-002_Label_Checklist.pdf')">Preview</button></td>
+        </tr>
+        <tr>
+          <td class="sop-code">REF-VA-001</td>
+          <td class="sop-title">Reference Library</td>
+          <td class="sop-summary">Curated reference materials for compliance and QA.</td>
+          <td class="sop-actions"><a class="sop-link" href="REF-VA-001_Reference_Library.pdf" target="_blank">Download</a></td>
+          <td class="sop-actions"><button class="sop-preview" onclick="previewPDF('REF-VA-001_Reference_Library.pdf')">Preview</button></td>
+        </tr>
+        <tr>
+          <td class="sop-code">SOP-VA-001</td>
+          <td class="sop-title">MBR Template</td>
+          <td class="sop-summary">Unified template for Master Batch Records.</td>
+          <td class="sop-actions"><a class="sop-link" href="SOP-VA-001_MBR.pdf" target="_blank">Download</a></td>
+          <td class="sop-actions"><button class="sop-preview" onclick="previewPDF('SOP-VA-001_MBR.pdf')">Preview</button></td>
+        </tr>
+        <tr>
+          <td class="sop-code">SOP-VA-101</td>
+          <td class="sop-title">Document Control</td>
+          <td class="sop-summary">Process for document versioning, approvals, and access control.</td>
+          <td class="sop-actions"><a class="sop-link" href="SOP-VA-101_Document_Control.pdf" target="_blank">Download</a></td>
+          <td class="sop-actions"><button class="sop-preview" onclick="previewPDF('SOP-VA-101_Document_Control.pdf')">Preview</button></td>
+        </tr>
+        <tr>
+          <td class="sop-code">SOP-VA-102</td>
+          <td class="sop-title">Training Program</td>
+          <td class="sop-summary">Requirements for training staff and maintaining records.</td>
+          <td class="sop-actions"><a class="sop-link" href="SOP-VA-102_Training_Program.pdf" target="_blank">Download</a></td>
+          <td class="sop-actions"><button class="sop-preview" onclick="previewPDF('SOP-VA-102_Training_Program.pdf')">Preview</button></td>
+        </tr>
+        <tr>
+          <td class="sop-code">SOP-VA-103</td>
+          <td class="sop-title">Change Control</td>
+          <td class="sop-summary">Managing process, equipment, or procedure changes.</td>
+          <td class="sop-actions"><a class="sop-link" href="SOP-VA-103_Change_Control.pdf" target="_blank">Download</a></td>
+          <td class="sop-actions"><button class="sop-preview" onclick="previewPDF('SOP-VA-103_Change_Control.pdf')">Preview</button></td>
+        </tr>
+        <tr>
+          <td class="sop-code">SOP-VA-104</td>
+          <td class="sop-title">Deviation/CAPA</td>
+          <td class="sop-summary">Procedures for managing deviations and corrective actions.</td>
+          <td class="sop-actions"><a class="sop-link" href="SOP-VA-104_Deviation_CAPA.pdf" target="_blank">Download</a></td>
+          <td class="sop-actions"><button class="sop-preview" onclick="previewPDF('SOP-VA-104_Deviation_CAPA.pdf')">Preview</button></td>
+        </tr>
+        <tr>
+          <td class="sop-code">SOP-VA-105</td>
+          <td class="sop-title">Internal Audit</td>
+          <td class="sop-summary">Process for conducting internal audits.</td>
+          <td class="sop-actions"><a class="sop-link" href="SOP-VA-105_Internal_Audit.pdf" target="_blank">Download</a></td>
+          <td class="sop-actions"><button class="sop-preview" onclick="previewPDF('SOP-VA-105_Internal_Audit.pdf')">Preview</button></td>
+        </tr>
+        <tr>
+          <td class="sop-code">SOP-VA-106</td>
+          <td class="sop-title">Product Release</td>
+          <td class="sop-summary">Procedures for QA product release and approval.</td>
+          <td class="sop-actions"><a class="sop-link" href="SOP-VA-106_Product_Release.pdf" target="_blank">Download</a></td>
+          <td class="sop-actions"><button class="sop-preview" onclick="previewPDF('SOP-VA-106_Product_Release.pdf')">Preview</button></td>
+        </tr>
+        <tr>
+          <td class="sop-code">SOP-VA-107</td>
+          <td class="sop-title">Product Recall Procedure</td>
+          <td class="sop-summary">Step-by-step guide for product recall events.</td>
+          <td class="sop-actions"><a class="sop-link" href="SOP-VA-107_Product_Recall_Procedure.pdf" target="_blank">Download</a></td>
+          <td class="sop-actions"><button class="sop-preview" onclick="previewPDF('SOP-VA-107_Product_Recall_Procedure.pdf')">Preview</button></td>
+        </tr>
+        <tr>
+          <td class="sop-code">SOP-VA-108</td>
+          <td class="sop-title">Record Retention Policy</td>
+          <td class="sop-summary">Records management and retention requirements.</td>
+          <td class="sop-actions"><a class="sop-link" href="SOP-VA-108_Record_Retention_Policy.pdf" target="_blank">Download</a></td>
+          <td class="sop-actions"><button class="sop-preview" onclick="previewPDF('SOP-VA-108_Record_Retention_Policy.pdf')">Preview</button></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <!-- Modal for PDF preview -->
+  <div id="pdfModal" style="display:none;position:fixed;z-index:1000;top:0;left:0;width:100vw;height:100vh;background:rgba(20,25,40,0.95);justify-content:center;align-items:center;">
+    <div style="max-width:86vw;max-height:82vh;width:840px;height:80vh;background:#232949;border-radius:18px;box-shadow:0 6px 32px #14162b90;position:relative;overflow:hidden;display:flex;flex-direction:column;">
+      <button onclick="closeModal()" style="position:absolute;top:16px;right:20px;background:none;border:none;color:#8be7ff;font-size:1.9em;font-weight:900;cursor:pointer;">&times;</button>
+      <iframe id="pdfFrame" style="width:100%;height:100%;border:none;background:#181d2c;" src=""></iframe>
+    </div>
+  </div>
+  <script>
+    function previewPDF(url) {
+      document.getElementById('pdfFrame').src = url;
+      document.getElementById('pdfModal').style.display = 'flex';
+    }
+    function closeModal() {
+      document.getElementById('pdfModal').style.display = 'none';
+      document.getElementById('pdfFrame').src = "";
+    }
+    document.addEventListener('keydown', function(e) {
+      if (e.key === "Escape") closeModal();
+    });
+  </script>
+</body>
+</html>

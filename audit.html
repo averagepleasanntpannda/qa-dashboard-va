@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Internal Audit Checklist</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #0b0f1a;
+      color: #e0e0e0;
+      padding: 20px;
+    }
+    h1, h2 {
+      color: #76c8f0;
+    }
+    section {
+      background: #161a28;
+      padding: 20px;
+      border-radius: 10px;
+      margin-bottom: 30px;
+      border: 1px solid #2c2f40;
+    }
+    label {
+      display: block;
+      margin-top: 15px;
+    }
+    input[type="text"], input[type="date"], textarea, select {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      background: #1d2133;
+      color: #fff;
+      border: 1px solid #333;
+      border-radius: 6px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+    th, td {
+      border: 1px solid #444;
+      padding: 10px;
+      background: #1d2133;
+    }
+    button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      background: #76c8f0;
+      color: #000;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+<h1>Internal Audit Checklist</h1>
+
+<section>
+  <h2>Audit Details</h2>
+  <label>Audit Date</label>
+  <input type="date" />
+
+  <label>Auditor Name</label>
+  <input type="text" />
+
+  <label>Area Audited</label>
+  <input type="text" />
+</section>
+
+<section>
+  <h2>Audit Checklist</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Requirement</th>
+        <th>Compliant</th>
+        <th>Comments</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>GMP Protocols Followed</td>
+        <td>
+          <select>
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+            <option value="n/a">N/A</option>
+          </select>
+        </td>
+        <td><input type="text" /></td>
+      </tr>
+      <tr>
+        <td>Documentation Complete</td>
+        <td>
+          <select>
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+            <option value="n/a">N/A</option>
+          </select>
+        </td>
+        <td><input type="text" /></td>
+      </tr>
+      <tr>
+        <td>Training Records Available</td>
+        <td>
+          <select>
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+            <option value="n/a">N/A</option>
+          </select>
+        </td>
+        <td><input type="text" /></td>
+      </tr>
+      <tr>
+        <td>Cleaning Logs Maintained</td>
+        <td>
+          <select>
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+            <option value="n/a">N/A</option>
+          </select>
+        </td>
+        <td><input type="text" /></td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<section>
+  <h2>Observations</h2>
+  <label>Findings Summary</label>
+  <textarea rows="4"></textarea>
+
+  <label>CAPA Required?</label>
+  <select>
+    <option value="">Select</option>
+    <option value="yes">Yes</option>
+    <option value="no">No</option>
+  </select>
+</section>
+
+<section>
+  <h2>Sign-Off</h2>
+  <label>Auditor Initials</label>
+  <input type="text" />
+
+  <label>Date</label>
+  <input type="date" />
+</section>
+
+</body>
+</html>

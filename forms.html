@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>QA Forms Index</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #181d2c;
+      color: #e3e7ee;
+      margin: 0;
+      padding: 0;
+    }
+    h1 {
+      text-align: center;
+      margin: 44px 0 30px 0;
+      color: #7ae0e0;
+      font-size: 2em;
+    }
+    .forms-container {
+      max-width: 700px;
+      margin: 0 auto 40px auto;
+      padding: 28px 16px;
+      background: #222741;
+      border-radius: 16px;
+      box-shadow: 0 6px 32px #14162b66;
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+    }
+    .form-link {
+      background: #232949;
+      border-radius: 12px;
+      box-shadow: 0 2px 12px #1d204055;
+      padding: 22px 26px;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+    .form-link h2 {
+      margin: 0 0 6px 0;
+      color: #88f1ff;
+      font-size: 1.08em;
+      font-weight: 600;
+      letter-spacing: .4px;
+    }
+    .form-link p {
+      margin: 0 0 7px 0;
+      color: #b1c2d9;
+      font-size: 1em;
+    }
+    .form-link a {
+      text-decoration: none;
+      background: linear-gradient(90deg,#53e3fa,#9bffdd 70%);
+      color: #181d2c;
+      font-weight: 600;
+      font-size: 1em;
+      border-radius: 8px;
+      padding: 8px 0;
+      width: 100%;
+      display: inline-block;
+      text-align: center;
+      margin-top: 5px;
+      box-shadow: 0 0 8px #53e3fa44;
+      transition: background .15s;
+    }
+    .form-link a:hover {
+      background: linear-gradient(90deg,#7beeff,#c2ffe4 80%);
+    }
+    @media (max-width: 600px) {
+      .forms-container { padding: 4vw 1vw; }
+      .form-link { padding: 18px 6px; }
+    }
+  </style>
+</head>
+<body>
+  <h1>QA Forms Index</h1>
+  <div class="forms-container">
+    <div class="form-link">
+      <h2>Internal Audit Checklist</h2>
+      <p>Audit your operation’s compliance.</p>
+      <a href="audit.html">Open Audit Form</a>
+    </div>
+    <div class="form-link">
+      <h2>Recall Initiation Form</h2>
+      <p>Log a product recall event.</p>
+      <a href="recall.html">Open Recall Form</a>
+    </div>
+    <div class="form-link">
+      <h2>Label Verification Checklist</h2>
+      <p>Check and confirm label compliance.</p>
+      <a href="labelcheck.html">Open Label Form</a>
+    </div>
+    <div class="form-link">
+      <h2>Production Breakdown Worksheet</h2>
+      <p>Record yield, pre/post op, and batch results.</p>
+      <a href="breakdown.html">Open Breakdown Form</a>
+    </div>
+    <div class="form-link">
+      <h2>Post-Harvest Tracking Log</h2>
+      <p>Track custody and product outcomes.</p>
+      <a href="postharvest.html">Open Post-Harvest Form</a>
+    </div>
+  </div>
+</body>
+</html>

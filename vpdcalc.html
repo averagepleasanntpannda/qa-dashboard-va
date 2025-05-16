@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>VPD Calculator | Verano Virginia QA</title>
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:700,600,400&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Montserrat', Arial, sans-serif;
+      background: #181d2c;
+      color: #e3e7ee;
+      margin: 0;
+      min-height: 100vh;
+      padding: 0;
+    }
+    .home-btn {
+      position: absolute; top: 26px; left: 38px;
+      background: linear-gradient(90deg,#c2e2f4 15%, #dbfaf4 80%);
+      color: #232949;
+      font-family: 'Montserrat', Arial, sans-serif;
+      font-weight: 700;
+      font-size: 1.06em;
+      text-decoration: none;
+      border-radius: 8px;
+      padding: 9px 20px 8px 20px;
+      box-shadow: 0 2px 14px #81bbd733;
+      transition: background .16s, color .13s;
+      border: none;
+      display: inline-block;
+      z-index: 100;
+    }
+    .home-btn:hover {
+      background: linear-gradient(90deg,#d7f6ff,#f0fff9 80%);
+      color: #181d2c;
+    }
+    @media (max-width: 700px) {
+      .home-btn {
+        position: static; display: block;
+        margin: 15px auto 0 auto; left: unset; top: unset; text-align: center;
+      }
+    }
+    .container {
+      max-width: 420px;
+      margin: 80px auto 0 auto;
+      padding: 38px 24px 30px 24px;
+      background: #232949;
+      border-radius: 18px;
+      box-shadow: 0 4px 24px #13182f33;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    h1 {
+      text-align: center;
+      font-size: 1.6em;
+      color: #a3d1f2;
+      font-weight: 700;
+      letter-spacing: .8px;
+      margin-bottom: 22px;
+      margin-top: 0;
+    }
+    label {
+      display: block;
+      margin: 19px 0 8px 0;
+      font-size: 1em;
+      color: #bfeaff;
+      font-weight: 600;
+      letter-spacing: .1px;
+    }
+    input[type="number"] {
+      width: 100%;
+      padding: 11px 14px;
+      font-size: 1.06em;
+      border: none;
+      border-radius: 7px;
+      background: #1e2236;
+      color: #fff;
+      margin-bottom: 6px;
+      font-family: 'Montserrat', Arial, sans-serif;
+      box-shadow: 0 0 7px #25295433 inset;
+      transition: box-shadow .14s;
+      outline: none;
+    }
+    input[type="number"]:focus {
+      box-shadow: 0 0 0 2px #a3d1f2;
+    }
+    button {
+      margin-top: 26px;
+      padding: 13px 0;
+      width: 100%;
+      background: linear-gradient(90deg,#c2e2f4 10%, #dbfaf4 90%);
+      border: none;
+      border-radius: 10px;
+      color: #232949;
+      font-size: 1.09em;
+      font-weight: 700;
+      font-family: 'Montserrat', Arial, sans-serif;
+      letter-spacing: .2px;
+      cursor: pointer;
+      box-shadow: 0 0 10px #81bbd755;
+      transition: background .17s;
+    }
+    button:hover {
+      background: linear-gradient(90deg,#d7f6ff,#f0fff9 80%);
+    }
+    .result {
+      margin-top: 2.1rem;
+      padding: 20px 18px;
+      border-radius: 12px;
+      background: #222741;
+      color: #e3e7ee;
+      box-shadow: 0 2px 10px #18213b33;
+      font-size: 1.07em;
+      width: 100%;
+    }
+    .status {
+      font-weight: 700;
+      font-size: 1.12em;
+      margin-bottom: 8px;
+      color: #7fd8ff;
+      letter-spacing: .3px;
+    }
+    .suggestion {
+      margin-top: 4px;
+      color: #b6c8db;
+    }
+    @media (max-width: 540px) {
+      .container {margin-top: 30vw; padding: 8vw 2vw;}
+      h1 {font-size: 1.12em;}
+    }
+  </style>
+</head>
+<body>
+  <a href="qadashboard.html" class="home-btn">&#8592; Home</a>
+  <div class="container">
+    <h1>VPD Calculator for Drying &amp; Curing</h1>
+    <label for="temp">Air Temperature (°F):</label>
+    <input type="number" id="temp" placeholder="e.g., 68" />
+
+    <label for="rh">Relative Humidity (%):</label>
+    <input type="number" id="rh" placeholder="e.g., 60" />
+
+    <button onclick="calculateVPD()">Calculate VPD</button>
+
+    <div class="result" id="result" style="display:none;">
+      <div class="status" id="status"></div>
+      <div class="suggestion" id="suggestion"></div>
+    </div>
+  </div>
+
+  <script>
+    function calculateVPD() {
+      const tempF = parseFloat(document.getElementById('temp').value);
+      const rh = parseFloat(document.getElementById('rh').value);
+      const resultDiv = document.getElementById('result');
+      const statusDiv = document.getElementById('status');
+      const suggestionDiv = document.getElementById('suggestion');
+
+      if (isNaN(tempF) || isNaN(rh) || rh <= 0 || rh > 100) {
+        alert('Please enter valid temperature and relative humidity values.');
+        return;
+      }
+
+      // Convert Fahrenheit to Celsius
+      const tempC = (tempF - 32) * 5 / 9;
+
+      // Calculate saturation vapor pressure (es) using Tetens formula
+      const es = 0.61078 * Math.exp((17.27 * tempC) / (tempC + 237.3));
+
+      // Actual vapor pressure (ea)
+      const ea = es * (rh / 100);
+
+      // VPD in kPa
+      const vpd = es - ea;
+
+      // Round to two decimal places
+      const vpdRounded = Math.round(vpd * 100) / 100;
+
+      // Determine status and suggestions
+      let status = '';
+      let suggestion = '';
+
+      if (vpdRounded < 0.8) {
+        status = `VPD: ${vpdRounded} kPa - Too Low`;
+        suggestion = 'Increase temperature or decrease humidity to raise VPD.';
+      } else if (vpdRounded > 1.1) {
+        status = `VPD: ${vpdRounded} kPa - Too High`;
+        suggestion = 'Decrease temperature or increase humidity to lower VPD.';
+      } else {
+        status = `VPD: ${vpdRounded} kPa - Optimal Range`;
+        suggestion = 'Your environment is within the ideal VPD range for drying and curing.';
+      }
+
+      // Display results
+      statusDiv.textContent = status;
+      suggestionDiv.textContent = suggestion;
+      resultDiv.style.display = 'block';
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Other QA Forms</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #181d2c;
+      color: #e3e7ee;
+      margin: 0;
+      padding: 0;
+    }
+    h1 {
+      text-align: center;
+      margin: 44px 0 30px 0;
+      color: #7ae0e0;
+      font-size: 2em;
+    }
+    .forms-container {
+      max-width: 700px;
+      margin: 0 auto 40px auto;
+      padding: 28px 16px;
+      background: #222741;
+      border-radius: 16px;
+      box-shadow: 0 6px 32px #14162b66;
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+    }
+    .form-link {
+      background: #232949;
+      border-radius: 12px;
+      box-shadow: 0 2px 12px #1d204055;
+      padding: 22px 26px;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+    .form-link h2 {
+      margin: 0 0 6px 0;
+      color: #88f1ff;
+      font-size: 1.08em;
+      font-weight: 600;
+      letter-spacing: .4px;
+    }
+    .form-link p {
+      margin: 0 0 7px 0;
+      color: #b1c2d9;
+      font-size: 1em;
+    }
+    .form-link a {
+      text-decoration: none;
+      background: linear-gradient(90deg,#c2e2f4 15%, #dbfaf4 80%);
+      color: #222741;
+      font-weight: 600;
+      font-size: 1em;
+      border-radius: 8px;
+      padding: 8px 0;
+      width: 100%;
+      display: inline-block;
+      text-align: center;
+      margin-top: 5px;
+      box-shadow: 0 0 8px #53e3fa44;
+      transition: background .15s;
+      border: none;
+    }
+    .form-link a:hover {
+      background: linear-gradient(90deg,#d7f6ff,#f0fff9 80%);
+    }
+    @media (max-width: 600px) {
+      .forms-container { padding: 4vw 1vw; }
+      .form-link { padding: 18px 6px; }
+    }.home-btn {
+  position: absolute;
+  top: 26px;
+  left: 38px;
+  background: linear-gradient(90deg,#c2e2f4 15%, #dbfaf4 80%);
+  color: #232949;
+  font-family: 'Montserrat', Arial, sans-serif;
+  font-weight: 700;
+  font-size: 1.06em;
+  text-decoration: none;
+  border-radius: 8px;
+  padding: 9px 20px 8px 20px;
+  box-shadow: 0 2px 14px #81bbd733;
+  transition: background .16s, color .13s;
+  border: none;
+  display: inline-block;
+  z-index: 100;
+}
+.home-btn:hover {
+  background: linear-gradient(90deg,#d7f6ff,#f0fff9 80%);
+  color: #181d2c;
+}
+@media (max-width: 700px) {
+  .home-btn { position: static; display: block; margin: 15px auto 0 auto; left: unset; top: unset; text-align: center; }
+}
+
+  </style>
+</head>
+<body>
+<a href="qadashboard.html" class="home-btn">&#8592; Home</a>
+  <h1>Other QA Forms</h1>
+  <div class="forms-container">
+    <div class="form-link">
+      <h2>Internal Audit Checklist</h2>
+      <p>Audit your operation’s compliance.</p>
+      <a href="audit.html">Open Audit Form</a>
+    </div>
+    <div class="form-link">
+      <h2>Recall Initiation Form</h2>
+      <p>Log a product recall event.</p>
+      <a href="recall.html">Open Recall Form</a>
+    </div>
+    <div class="form-link">
+      <h2>Label Verification Checklist</h2>
+      <p>Check and confirm label compliance.</p>
+      <a href="labelcheck.html">Open Label Form</a>
+    </div>
+    <!-- Add any additional forms here as needed -->
+  </div>
+</body>
+</html>
