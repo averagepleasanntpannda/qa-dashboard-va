@@ -25,6 +25,34 @@
   </style>
 </head>
 <body>
+  <body>
+  <!-- Password Gate -->
+  <div id="login" style="display:flex; flex-direction:column; align-items:center; justify-content:center; min-height:100vh; background:#181d2c;">
+    <h2 style="color:#a3d1f2; font-family:Montserrat;">Verano QA Dashboard Login</h2>
+    <input type="password" id="pass" placeholder="Enter Access Password"
+      style="padding:12px 16px; border-radius:8px; font-size:1.05em; border:none; margin:18px 0 8px 0; width:260px;">
+    <button onclick="checkPass()" style="padding:11px 38px; border-radius:8px; background:linear-gradient(90deg,#c2e2f4 10%, #dbfaf4 90%); border:none; color:#232949; font-weight:700; font-size:1.07em; font-family:Montserrat; cursor:pointer;">Login</button>
+    <div id="fail" style="color:#ff8484; font-family:Montserrat; margin-top:13px;"></div>
+  </div>
+  <div id="mainDashboard" style="display:none;">
+    <!-- Your original dashboard HTML goes here -->
+  </div>
+  <script>
+    function checkPass() {
+      const pass = document.getElementById('pass').value;
+      // CHANGE THE PASSWORD BELOW!
+      if (pass === "veranoqa2024") {
+        document.getElementById('login').style.display = 'none';
+        document.getElementById('mainDashboard').style.display = 'block';
+      } else {
+        document.getElementById('fail').innerText = "Incorrect password. Please try again.";
+      }
+    }
+    document.getElementById('pass').addEventListener('keydown', function(e) {
+      if (e.key === "Enter") checkPass();
+    });
+  </script>
+</body>
   <div class="header">
     <h1>Verano Virginia QA Dashboard</h1>
   </div>
