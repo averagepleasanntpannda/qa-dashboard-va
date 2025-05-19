@@ -6,108 +6,130 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <link href="https://fonts.googleapis.com/css?family=Montserrat:700,600,400&display=swap" rel="stylesheet">
   <style>
-    body {font-family: 'Montserrat', Arial, sans-serif; background: #181d2c; color: #e3e7ee; margin: 0; padding: 0;}
-    .header {text-align: center; margin: 48px 0 18px 0;}
-    h1 {margin: 0; color: #fff; font-family: 'Montserrat', Arial, sans-serif; font-weight: 700; font-size: 2.2em; letter-spacing: 2px; text-transform: uppercase;}
-    .tabs-bar {display: flex; justify-content: center; align-items: flex-end; gap: 18px; margin: 36px 0 0 0;}
-    .tab-btn {background: #232949; color: #bfeaff; border: none; padding: 16px 36px 14px 36px; font-family: 'Montserrat', Arial, sans-serif; font-size: 1.12em; border-radius: 16px 16px 0 0; font-weight: 700; cursor: pointer; margin-bottom: -2px; border-bottom: 2px solid transparent; transition: background .18s, color .13s; text-transform: uppercase; letter-spacing: 1px; box-shadow: 0 2px 18px #13182f33;}
-    .tab-btn.active, .tab-btn:hover {background: #28315a; color: #fff; border-bottom: 2.5px solid #96c3ed;}
-    .tab-content {display: none; max-width: 900px; margin: 0 auto 44px auto; padding: 40px 32px 24px 32px; background: #222741; border-radius: 0 0 18px 18px; box-shadow: 0 4px 24px #14162b66; animation: fadein .3s; min-height: 260px;}
-    .tab-content.active {display: block;}
-    @keyframes fadein { from {opacity: 0;} to {opacity: 1;} }
-    .module-title {color: #a3d1f2; font-size: 1.22em; margin-top: 0; margin-bottom: 8px; font-family: 'Montserrat', Arial, sans-serif; letter-spacing: .7px; font-weight: 700;}
-    .module-desc {color: #b6c8db; font-size: 1.04em; margin-bottom: 20px; font-family: 'Montserrat', Arial, sans-serif;}
-    .module-link {display: inline-block; margin-top: 12px; text-decoration: none; padding: 13px 36px; border-radius: 10px; font-weight: 700; font-size: 1.07em; color: #222741; background: linear-gradient(90deg,#c2e2f4 15%, #dbfaf4 80%); transition: background .17s; box-shadow: 0 0 10px #81bbd755; border: none; font-family: 'Montserrat', Arial, sans-serif; letter-spacing: .2px;}
-    .module-link:hover {background: linear-gradient(90deg,#d7f6ff,#f0fff9 80%);}
-    ul {margin-top: 14px; margin-bottom: 0; color: #bfeaff; font-size: 1.05em; font-family: 'Montserrat', Arial, sans-serif;}
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Montserrat', Arial, sans-serif; background: #181d2c; color: #e3e7ee; display: flex; height: 100vh; }
+    .sidebar {
+      width: 240px;
+      background-color: #1f1f2e;
+      color: #fff;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+    }
+    .sidebar h1 {
+      font-size: 1.5rem;
+      margin-bottom: 2rem;
+      color: #a3d1f2;
+    }
+    .nav-link {
+      margin: 10px 0;
+      padding: 10px;
+      border-radius: 6px;
+      text-decoration: none;
+      color: #fff;
+      background-color: #2d2d3a;
+      transition: background-color 0.3s ease;
+      cursor: pointer;
+    }
+    .nav-link:hover, .nav-link.active {
+      background-color: #3f3f5e;
+    }
+    .main {
+      flex-grow: 1;
+      overflow-y: auto;
+      padding: 40px;
+    }
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
+    .module-title { color: #a3d1f2; font-size: 1.22em; margin-top: 0; margin-bottom: 8px; font-family: 'Montserrat'; letter-spacing: .7px; font-weight: 700; }
+    .module-desc { color: #b6c8db; font-size: 1.04em; margin-bottom: 20px; font-family: 'Montserrat'; }
+    .module-link { display: inline-block; margin-top: 12px; text-decoration: none; padding: 13px 36px; border-radius: 10px; font-weight: 700; font-size: 1.07em; color: #222741; background: linear-gradient(90deg,#c2e2f4 15%, #dbfaf4 80%); transition: background .17s; box-shadow: 0 0 10px #81bbd755; border: none; font-family: 'Montserrat'; letter-spacing: .2px; }
+    .module-link:hover { background: linear-gradient(90deg,#d7f6ff,#f0fff9 80%); }
+    ul { margin-top: 14px; margin-bottom: 0; color: #bfeaff; font-size: 1.05em; font-family: 'Montserrat'; }
     li { margin-bottom: 8px; }
-    @media (max-width: 700px) {.tab-content { padding: 24px 6vw 16px 6vw; min-height: 200px; }.tabs-bar { gap: 7px; }.tab-btn { padding: 13px 8vw 10px 8vw; font-size: 1em; }}
   </style>
 </head>
 <body>
-  <body>
   <!-- Password Gate -->
-  <div id="login" style="display:flex; flex-direction:column; align-items:center; justify-content:center; min-height:100vh; background:#181d2c;">
+  <div id="login" style="display:flex; flex-direction:column; align-items:center; justify-content:center; min-height:100vh; background:#181d2c; position: absolute; top: 0; left: 0; width: 100%;">
     <h2 style="color:#a3d1f2; font-family:Montserrat;">Verano QA Dashboard Login</h2>
     <input type="password" id="pass" placeholder="Enter Access Password"
       style="padding:12px 16px; border-radius:8px; font-size:1.05em; border:none; margin:18px 0 8px 0; width:260px;">
     <button onclick="checkPass()" style="padding:11px 38px; border-radius:8px; background:linear-gradient(90deg,#c2e2f4 10%, #dbfaf4 90%); border:none; color:#232949; font-weight:700; font-size:1.07em; font-family:Montserrat; cursor:pointer;">Login</button>
     <div id="fail" style="color:#ff8484; font-family:Montserrat; margin-top:13px;"></div>
   </div>
-  <div id="mainDashboard" style="display:none;">
-    <!-- Your original dashboard HTML goes here -->
+  <div id="mainDashboard" style="display:none; width: 100%; height: 100%; display: flex;">
+    <div class="sidebar">
+      <h1>QA Dashboard</h1>
+      <div class="nav-link active" onclick="showTab(0, this)">SOP Library</div>
+      <div class="nav-link" onclick="showTab(1, this)">MBR Forms</div>
+      <div class="nav-link" onclick="showTab(2, this)">Other Forms</div>
+      <div class="nav-link" onclick="showTab(3, this)">Tools</div>
+    </div>
+    <div class="main">
+      <div class="tab-content active">
+        <div class="module-title">SOP Library</div>
+        <div class="module-desc">Access all current SOPs and compliance documents. View, preview, and download SOPs as needed.</div>
+        <a class="module-link" href="sop.html">Open SOP Library</a>
+        <ul>
+          <li>Document control, training, change control, retention, and more.</li>
+          <li>Indexed and searchable for compliance audits.</li>
+        </ul>
+      </div>
+      <div class="tab-content">
+        <div class="module-title">MBR Forms</div>
+        <div class="module-desc">Master Batch Record workflow: QA Label Checklist, Post-Harvest Tracking Log, and Production Breakdown Worksheet.</div>
+        <a class="module-link" href="mbr.html">Open MBR Forms</a>
+        <ul>
+          <li>Complete every batch with digital, standardized forms.</li>
+          <li>Easy tabbed navigation between forms.</li>
+        </ul>
+      </div>
+      <div class="tab-content">
+        <div class="module-title">Other Forms</div>
+        <div class="module-desc">Access all other QA forms: Audit, Recall Initiation, Label Check, and more.</div>
+        <a class="module-link" href="otherforms.html">Open Other Forms</a>
+        <ul>
+          <li>Internal Audit, Recall, Label Verification, and daily compliance tools.</li>
+          <li>Everything outside of batch-specific documentation.</li>
+        </ul>
+      </div>
+      <div class="tab-content">
+        <div class="module-title">Tools</div>
+        <div class="module-desc">Digital QA calculators, reference links, and productivity utilities.</div>
+        <a class="module-link" href="tools.html">Open Tools</a>
+        <ul>
+          <li>VPD calculator</li>
+          <li>Reference library</li>
+          <li>And more QA productivity tools…</li>
+        </ul>
+      </div>
+    </div>
   </div>
   <script>
     function checkPass() {
       const pass = document.getElementById('pass').value;
-      // CHANGE THE PASSWORD BELOW!
       if (pass === "veranoqa2024") {
         document.getElementById('login').style.display = 'none';
-        document.getElementById('mainDashboard').style.display = 'block';
+        document.getElementById('mainDashboard').style.display = 'flex';
       } else {
         document.getElementById('fail').innerText = "Incorrect password. Please try again.";
       }
     }
-    document.getElementById('pass').addEventListener('keydown', function(e) {
-      if (e.key === "Enter") checkPass();
-    });
-  </script>
-</body>
-  <div class="header">
-    <h1>Verano Virginia QA Dashboard</h1>
-  </div>
-  <div class="tabs-bar">
-    <button class="tab-btn active" onclick="showTab(0)">SOP Library</button>
-    <button class="tab-btn" onclick="showTab(1)">MBR Forms</button>
-    <button class="tab-btn" onclick="showTab(2)">Other Forms</button>
-    <button class="tab-btn" onclick="showTab(3)">Tools</button>
-  </div>
-  <div class="tab-content active">
-    <div class="module-title">SOP Library</div>
-    <div class="module-desc">Access all current SOPs and compliance documents. View, preview, and download SOPs as needed.</div>
-    <a class="module-link" href="sop.html">Open SOP Library</a>
-    <ul>
-      <li>Document control, training, change control, retention, and more.</li>
-      <li>Indexed and searchable for compliance audits.</li>
-    </ul>
-  </div>
-  <div class="tab-content">
-    <div class="module-title">MBR Forms</div>
-    <div class="module-desc">Master Batch Record workflow: QA Label Checklist, Post-Harvest Tracking Log, and Production Breakdown Worksheet.</div>
-    <a class="module-link" href="mbr.html">Open MBR Forms</a>
-    <ul>
-      <li>Complete every batch with digital, standardized forms.</li>
-      <li>Easy tabbed navigation between forms.</li>
-    </ul>
-  </div>
-  <div class="tab-content">
-    <div class="module-title">Other Forms</div>
-    <div class="module-desc">Access all other QA forms: Audit, Recall Initiation, Label Check, and more.</div>
-    <a class="module-link" href="otherforms.html">Open Other Forms</a>
-    <ul>
-      <li>Internal Audit, Recall, Label Verification, and daily compliance tools.</li>
-      <li>Everything outside of batch-specific documentation.</li>
-    </ul>
-  </div>
-  <div class="tab-content">
-    <div class="module-title">Tools</div>
-    <div class="module-desc">Digital QA calculators, reference links, and productivity utilities.</div>
-    <a class="module-link" href="tools.html">Open Tools</a>
-    <ul>
-      <li>VPD calculator</li>
-      <li>Reference library</li>
-      <li>And more QA productivity tools…</li>
-    </ul>
-  </div>
-  <script>
-    function showTab(idx) {
-      document.querySelectorAll('.tab-btn').forEach((btn, i) => {
-        btn.classList.toggle('active', i === idx);
+
+    function showTab(idx, el) {
+      document.querySelectorAll('.nav-link').forEach((btn, i) => {
+        btn.classList.remove('active');
       });
+      el.classList.add('active');
       document.querySelectorAll('.tab-content').forEach((tab, i) => {
         tab.classList.toggle('active', i === idx);
       });
     }
+
+    document.getElementById('pass').addEventListener('keydown', function(e) {
+      if (e.key === "Enter") checkPass();
+    });
   </script>
 </body>
 </html>
