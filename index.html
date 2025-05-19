@@ -7,7 +7,8 @@
   <link href="https://fonts.googleapis.com/css?family=Montserrat:700,600,400&display=swap" rel="stylesheet">
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: 'Montserrat', Arial, sans-serif; background: #181d2c; color: #e3e7ee; display: flex; height: 100vh; }
+    body { font-family: 'Montserrat', Arial, sans-serif; background: #181d2c; color: #e3e7ee; display: flex; flex-direction: column; min-height: 100vh; }
+    .wrapper { flex: 1; display: flex; }
     .sidebar {
       width: 240px;
       background-color: #1f1f2e;
@@ -47,6 +48,12 @@
     .module-link:hover { background: linear-gradient(90deg,#d7f6ff,#f0fff9 80%); }
     ul { margin-top: 14px; margin-bottom: 0; color: #bfeaff; font-size: 1.05em; font-family: 'Montserrat'; }
     li { margin-bottom: 8px; }
+    @media (max-width: 768px) {
+      .wrapper { flex-direction: column; }
+      .sidebar { width: 100%; flex-direction: row; flex-wrap: wrap; justify-content: space-around; }
+      .main { padding: 20px; }
+      .nav-link { flex: 1 0 40%; text-align: center; }
+    }
   </style>
 </head>
 <body>
@@ -58,51 +65,52 @@
     <button onclick="checkPass()" style="padding:11px 38px; border-radius:8px; background:linear-gradient(90deg,#c2e2f4 10%, #dbfaf4 90%); border:none; color:#232949; font-weight:700; font-size:1.07em; font-family:Montserrat; cursor:pointer;">Login</button>
     <div id="fail" style="color:#ff8484; font-family:Montserrat; margin-top:13px;"></div>
   </div>
-  <div id="mainDashboard" style="display:none; width: 100%; height: 100%; display: flex;">
-    <div class="sidebar">
-      <h1>QA Dashboard</h1>
-      <div class="nav-link active" onclick="showTab(0, this)">SOP Library</div>
-      <div class="nav-link" onclick="showTab(1, this)">MBR Forms</div>
-      <div class="nav-link" onclick="showTab(2, this)">Other Forms</div>
-      <div class="nav-link" onclick="showTab(3, this)">Tools</div>
-    </div>
-    <div class="main">
-      <div class="tab-content active">
-        <div class="module-title">SOP Library</div>
-        <div class="module-desc">Access all current SOPs and compliance documents. View, preview, and download SOPs as needed.</div>
-        <a class="module-link" href="sop.html">Open SOP Library</a>
-        <ul>
-          <li>Document control, training, change control, retention, and more.</li>
-          <li>Indexed and searchable for compliance audits.</li>
-        </ul>
+  <div id="mainDashboard" style="display:none; width: 100%; height: 100%; flex: 1;">
+    <div class="wrapper">
+      <div class="sidebar">
+        <h1>QA Dashboard</h1>
+        <div class="nav-link active" onclick="showTab(0, this)">SOP Library</div>
+        <div class="nav-link" onclick="showTab(1, this)">MBR Forms</div>
+        <div class="nav-link" onclick="showTab(2, this)">Other Forms</div>
+        <div class="nav-link" onclick="showTab(3, this)">Tools</div>
       </div>
-      <div class="tab-content">
-        <div class="module-title">MBR Forms</div>
-        <div class="module-desc">Master Batch Record workflow: QA Label Checklist, Post-Harvest Tracking Log, and Production Breakdown Worksheet.</div>
-        <a class="module-link" href="mbr.html">Open MBR Forms</a>
-        <ul>
-          <li>Complete every batch with digital, standardized forms.</li>
-          <li>Easy tabbed navigation between forms.</li>
-        </ul>
-      </div>
-      <div class="tab-content">
-        <div class="module-title">Other Forms</div>
-        <div class="module-desc">Access all other QA forms: Audit, Recall Initiation, Label Check, and more.</div>
-        <a class="module-link" href="otherforms.html">Open Other Forms</a>
-        <ul>
-          <li>Internal Audit, Recall, Label Verification, and daily compliance tools.</li>
-          <li>Everything outside of batch-specific documentation.</li>
-        </ul>
-      </div>
-      <div class="tab-content">
-        <div class="module-title">Tools</div>
-        <div class="module-desc">Digital QA calculators, reference links, and productivity utilities.</div>
-        <a class="module-link" href="tools.html">Open Tools</a>
-        <ul>
-          <li>VPD calculator</li>
-          <li>Reference library</li>
-          <li>And more QA productivity tools…</li>
-        </ul>
+      <div class="main">
+        <div class="tab-content active">
+          <div class="module-title">SOP Library</div>
+          <div class="module-desc">Access all current SOPs and compliance documents. View, preview, and download SOPs as needed.</div>
+          <ul>
+            <li>Document control, training, change control, retention, and more.</li>
+            <li>Indexed and searchable for compliance audits.</li>
+          </ul>
+        </div>
+        <div class="tab-content">
+          <div class="module-title">MBR Forms</div>
+          <div class="module-desc">Master Batch Record workflow: QA Label Checklist, Post-Harvest Tracking Log, and Production Breakdown Worksheet.</div>
+          <a class="module-link" href="#" onclick="showTab(1, document.querySelectorAll('.nav-link')[1])">Open MBR Forms</a>
+          <ul>
+            <li>Complete every batch with digital, standardized forms.</li>
+            <li>Easy tabbed navigation between forms.</li>
+          </ul>
+        </div>
+        <div class="tab-content">
+          <div class="module-title">Other Forms</div>
+          <div class="module-desc">Access all other QA forms: Audit, Recall Initiation, Label Check, and more.</div>
+          <a class="module-link" href="#" onclick="showTab(2, document.querySelectorAll('.nav-link')[2])">Open Other Forms</a>
+          <ul>
+            <li>Internal Audit, Recall, Label Verification, and daily compliance tools.</li>
+            <li>Everything outside of batch-specific documentation.</li>
+          </ul>
+        </div>
+        <div class="tab-content">
+          <div class="module-title">Tools</div>
+          <div class="module-desc">Digital QA calculators, reference links, and productivity utilities.</div>
+          <a class="module-link" href="#" onclick="showTab(3, document.querySelectorAll('.nav-link')[3])">Open Tools</a>
+          <ul>
+            <li>VPD calculator</li>
+            <li>Reference library</li>
+            <li>And more QA productivity tools…</li>
+          </ul>
+        </div>
       </div>
     </div>
   </div>
@@ -133,4 +141,5 @@
   </script>
 </body>
 </html>
+
 
